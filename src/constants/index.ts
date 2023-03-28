@@ -1,5 +1,29 @@
 import { join } from "path";
 
-export const PACKAGE_ROOT = join(__dirname, "..", "..");
+/**
+ * 项目根目录
+ */
+export const PROJECT_ROOT = join(__dirname, "..");
+/**
+ * html模板路径
+ */
+export const DEFAULT_HTML_PATH = join(PROJECT_ROOT, "template.html");
+/**
+ * 客户端入口路径
+ */
+export const CLIENT_ENTRY_PATH = join(
+  PROJECT_ROOT,
+  "src",
+  "runtime",
+  "client-entry.tsx"
+);
 
-export const DEFAULT_HTML_PATH = join(PACKAGE_ROOT, "template.html");
+/**
+ * 服务端入口路径
+ */
+export const SERVER_ENTRY_PATH = join(
+  PROJECT_ROOT,
+  "src",
+  "runtime",
+  "ssr-entry.tsx"
+);

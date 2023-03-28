@@ -1,16 +1,16 @@
 import { cac } from "cac";
-import path = require("path");
+import { resolve } from "path";
+
 import { createDevServer } from "./dev";
+import { build } from "./build";
 
-const { version } = require("../../package.json");
-
-const cli = cac("fido").version(version).help();
+const cli = cac("fido").version("0.0.1").help();
 
 cli
   .command("[root]", "start dev server")
   .alias("dev")
   .action(async (root: string) => {
-    const rootPath = root ? path.resolve(root) : process.cwd();
+    const rootPath = root ? resolve(root) : process.cwd();
     const server = await createDevServer(rootPath);
 
     await server.listen();
@@ -20,7 +20,11 @@ cli
 cli
   .command("build [root]", "build for production")
   .action(async (root: string) => {
-    console.log("build", root);
+    try {
+      await build(resolve(root));
+    } catch (e) {
+      console.log(e);
+    }
   });
 
 cli.parse();

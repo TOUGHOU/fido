@@ -7,6 +7,9 @@ const createDevServer = async (root = process.cwd()) => {
   return createViteDevServer({
     root,
     plugins: [indexHtmlPlguin(), pluginReact()],
+    server: {
+      open: true,
+    },
   });
 };
 

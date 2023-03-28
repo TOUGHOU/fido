@@ -1,12 +1,26 @@
 import { readFile } from "fs/promises";
-import { Server } from "http";
 import type { Plugin } from "vite";
-import { DEFAULT_HTML_PATH } from "../constants";
+import { CLIENT_ENTRY_PATH, DEFAULT_HTML_PATH } from "../constants";
 
 export const indexHtmlPlguin: () => Plugin = () => {
   return {
     name: "fido:index-html",
     apply: "serve",
+    transformIndexHtml(html) {
+      return {
+        html,
+        tags: [
+          {
+            tag: "script",
+            attrs: {
+              type: "module",
+              src: `/@fs/${CLIENT_ENTRY_PATH}`,
+            },
+            injectTo: "body",
+          },
+        ],
+      };
+    },
     configureServer(server) {
       return () => {
         server.middlewares.use(async (req, res, next) => {

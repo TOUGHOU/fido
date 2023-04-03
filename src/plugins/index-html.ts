@@ -1,6 +1,6 @@
 import { readFile } from "fs/promises";
 import type { Plugin } from "vite";
-import { CLIENT_ENTRY_PATH, DEFAULT_HTML_PATH } from "../constants";
+import { CLIENT_ENTRY_PATH, DEFAULT_HTML_PATH } from "../shared/constants";
 
 export const indexHtmlPlguin: () => Plugin = () => {
   return {
@@ -14,11 +14,11 @@ export const indexHtmlPlguin: () => Plugin = () => {
             tag: "script",
             attrs: {
               type: "module",
-              src: `/@fs/${CLIENT_ENTRY_PATH}`,
+              src: `/@fs/${CLIENT_ENTRY_PATH}`
             },
-            injectTo: "body",
-          },
-        ],
+            injectTo: "body"
+          }
+        ]
       };
     },
     configureServer(server) {
@@ -40,6 +40,6 @@ export const indexHtmlPlguin: () => Plugin = () => {
           }
         });
       };
-    },
+    }
   };
 };

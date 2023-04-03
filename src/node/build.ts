@@ -3,7 +3,7 @@ import { join } from "path";
 import type { RollupOutput } from "rollup";
 // import ora from "ora";
 
-import { CLIENT_ENTRY_PATH, SERVER_ENTRY_PATH } from "../constants";
+import { CLIENT_ENTRY_PATH, SERVER_ENTRY_PATH } from "../shared/constants";
 import renderPage from "./render-page";
 
 const getViteConfig = (isServer: boolean, root: string): InlineConfig => {
@@ -16,10 +16,10 @@ const getViteConfig = (isServer: boolean, root: string): InlineConfig => {
       rollupOptions: {
         input: isServer ? SERVER_ENTRY_PATH : CLIENT_ENTRY_PATH,
         output: {
-          format: isServer ? "cjs" : "esm",
-        },
-      },
-    },
+          format: isServer ? "cjs" : "esm"
+        }
+      }
+    }
   };
 };
 
@@ -27,7 +27,7 @@ const createBundle = async (root: string) => {
   try {
     const [clientBundle, serverBundle] = await Promise.all([
       viteBuild(getViteConfig(false, root)),
-      viteBuild(getViteConfig(true, root)),
+      viteBuild(getViteConfig(true, root))
     ]);
 
     return [clientBundle, serverBundle] as [RollupOutput, RollupOutput];
@@ -39,8 +39,10 @@ const createBundle = async (root: string) => {
 export const build = async (root = process.cwd()) => {
   // const spinning = ora();
   // spinning.start("Building client and server bundle");
-
-  const [clientBundle] = await createBundle(root);
+  const [clientBundle] = (await createBundle(root)) as [
+    RollupOutput,
+    RollupOutput
+  ];
   const serverEntryPath = join(root, ".temp", "ssr-entry.js");
 
   const { default: render } = await import(serverEntryPath);

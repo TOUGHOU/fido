@@ -10,7 +10,7 @@ const createDevServer = async (root = process.cwd(), restartServer) => {
   const config = await resolveConfig(root, "serve", "development");
 
   return createViteDevServer({
-    root,
+    root: PACKAGE_ROOT,
     plugins: [
       indexHtmlPlguin(),
       pluginReact(),

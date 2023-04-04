@@ -1,12 +1,13 @@
-import { relative } from "path";
+import { join, relative } from "path";
 import type { Plugin } from "vite";
 import { SiteConfig } from "shared/types";
+import { PACKAGE_ROOT } from "shared/constants";
 
 const SITE_DATA_ID = "fido:site-data";
 
 export function pluginConfig(
   config: SiteConfig,
-  restartServer: () => Promise<void>
+  restartServer?: () => Promise<void>
 ): Plugin {
   return {
     name: "fido:config",
@@ -26,8 +27,18 @@ export function pluginConfig(
       if (includeFile(ctx.file)) {
         console.log(`\n${relative}`);
 
-        await restartServer();
+        await restartServer?.();
       }
+    },
+    config() {
+      return {
+        root: PACKAGE_ROOT,
+        resolve: {
+          alias: {
+            "@runtime": join(PACKAGE_ROOT, "src", "runtime", "index.ts")
+          }
+        }
+      };
     }
   };
 }

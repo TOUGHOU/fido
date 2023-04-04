@@ -2,6 +2,7 @@ import { cac } from "cac";
 import { resolve } from "path";
 
 import { build } from "./build";
+import { resolveConfig } from "./config";
 
 const cli = cac("fido").version("0.0.1").help();
 
@@ -28,7 +29,9 @@ cli
   .command("build [root]", "build for production")
   .action(async (root: string) => {
     try {
-      await build(resolve(root));
+      const rootPath = resolve(root);
+      const config = await resolveConfig(rootPath, "build", "production");
+      await build(rootPath, config);
     } catch (e) {
       console.log(e);
     }

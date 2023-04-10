@@ -18,13 +18,12 @@ export function pluginRoutes(options: RoutesPluginProps): Plugin {
     },
     resolveId(id: string) {
       if (id === ROUTES_ID) {
-        return "\0{id}";
+        return `\0${id}`;
       }
     },
     load(id: string) {
       if (id === `\0${ROUTES_ID}`) {
         const routes = routeService.generateRoutesCode();
-        console.log({ routes });
 
         return routes;
       }

@@ -44,8 +44,6 @@ const createBundle = async (root: string, config: SiteConfig) => {
 };
 
 export const build = async (root = process.cwd(), config: SiteConfig) => {
-  // const spinning = ora();
-  // spinning.start("Building client and server bundle");
   const [clientBundle] = (await createBundle(root, config)) as [
     RollupOutput,
     RollupOutput

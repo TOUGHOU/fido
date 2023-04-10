@@ -2,7 +2,8 @@ import { createServer as createViteDevServer } from "vite";
 import pluginReact from "@vitejs/plugin-react";
 
 import { indexHtmlPlguin } from "plugins/index-html";
-import { pluginConfig } from "plugins/pugin-config";
+import { pluginConfig } from "plugins/plugin-config";
+import { pluginRoutes } from "plugins/plugin-routes";
 import { resolveConfig } from "./config";
 import { PACKAGE_ROOT } from "shared/constants";
 
@@ -13,8 +14,11 @@ const createDevServer = async (root = process.cwd(), restartServer) => {
     root: PACKAGE_ROOT,
     plugins: [
       indexHtmlPlguin(),
-      pluginReact(),
-      pluginConfig(config, restartServer)
+      pluginReact({ jsxRuntime: "automatic" }),
+      pluginConfig(config, restartServer),
+      pluginRoutes({
+        root: config.root
+      })
     ],
     server: {
       open: true,

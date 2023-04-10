@@ -1,11 +1,5 @@
 import { useRoutes } from "react-router-dom";
-
-const routeConfig = [
-  {
-    path: "/guide",
-    element: () => <div>guide</div>
-  }
-];
+import { routes as routeConfig } from "fido:routes";
 
 export const Content = () => {
   const routes = useRoutes(routeConfig);

@@ -1,14 +1,11 @@
-import { useState } from "react";
 import { Content } from "@runtime";
 
-export const Layout = () => {
-  const [count, setCount] = useState(1);
+export function Layout() {
   return (
     <div>
-      {count}
-      <button onClick={() => setCount(count + 1)}>add</button>
-
+      <h1>Common Content</h1>
+      <h1>Doc Content</h1>
       <Content />
     </div>
   );
-};
+}

@@ -7,7 +7,7 @@ import pluginReact from "@vitejs/plugin-react";
 import { CLIENT_ENTRY_PATH, SERVER_ENTRY_PATH } from "../shared/constants";
 import renderPage from "./render-page";
 import { SiteConfig } from "shared/types";
-import { pluginConfig } from "plugins/pugin-config";
+import { pluginConfig } from "plugins/plugin-config";
 
 const createBundle = async (root: string, config: SiteConfig) => {
   const getViteConfig = (isServer: boolean, root: string): InlineConfig => {
